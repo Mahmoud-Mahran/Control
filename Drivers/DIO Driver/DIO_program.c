@@ -6,7 +6,107 @@
 #include "DIO_config.h"
 
 
-u8 MDIO_voidGetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin)
+u8 MDIO_u8GetPortDirection(u8 Copy_u8Port){
+    switch(Copy_u8Port)
+    {
+        case MDIO_PORTA:
+            return DDRA; 
+        break;
+        case MDIO_PORTB:
+            return DDRB;
+        break;
+        case MDIO_PORTC:
+            return DDRC; 
+        break;
+        case MDIO_PORTD:
+            return DDRD; 
+        break;
+        default:
+        break;
+        }
+}
+u8 MDIO_u8GetPortValue(u8 Copy_u8Port){
+    switch(Copy_u8Port)
+    {
+        case MDIO_PORTA:
+            return PORTA; 
+        break;
+        case MDIO_PORTB:
+            return PORTB;
+        break;
+        case MDIO_PORTC:
+            return PORTC; 
+        break;
+        case MDIO_PORTD:
+            return PORTD; 
+        break;
+        default:
+        break;
+        }
+}
+void MDIO_voidSetPortDirection(u8 Copy_u8Port,Copy_u8Direction){
+    switch(Copy_u8Port)
+    {
+        case MDIO_PORTA:
+            DDRA = Copy_u8Direction; 
+        break;
+        case MDIO_PORTB:
+           DDRB = Copy_u8Direction;
+        break;
+        case MDIO_PORTC:
+           DDRC = Copy_u8Direction;
+        break;
+        case MDIO_PORTD:
+           DDRD = Copy_u8Direction;
+        break;
+        default:
+        break;
+        }
+}
+
+
+void MDIO_voidSetPortValues(u8 Copy_u8Port,u8 u8Value){
+      switch(Copy_u8Port)
+    {
+        case MDIO_PORTA:
+            PORTA = u8value; 
+        break;
+        case MDIO_PORTB:
+            PORTB = u8value; 
+        break;
+        case MDIO_PORTC:
+            PORTC = u8value; 
+        break;
+        case MDIO_PORTD:
+            PORTD = u8value; 
+        break;
+        default:
+        break;
+        }
+}
+
+u8 MDIO_u8GetPinDirection(u8 Copy_u8Port, u8 Copy_u8Pin){
+    if ( Copy_u8Pin > 7)
+        return;
+     switch(Copy_u8Port)
+    {
+        case MDIO_PORTA:
+            return GET_BIT(DDRA,Copy_u8Pin);
+        break;
+        case MDIO_PORTB:
+           return GET_BIT(DDRB,Copy_u8Pin);
+        break;
+        case MDIO_PORTC:
+           return GET_BIT(DDRC,Copy_u8Pin);
+        break;
+        case MDIO_PORTD:
+           return GET_BIT(DDRD,Copy_u8Pin);
+        break;
+        default:
+        break;
+        }
+}
+u8 MDIO_u8GetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin)
 {
      if ( Copy_u8Pin > 7)
         return;
@@ -29,31 +129,7 @@ u8 MDIO_voidGetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin)
         }
 }
 
-void MDIO_voidSetPortValues(u8 Copy_u8Port,u8 u8Value){
 
-}
-
-
-
-void MDIO_voidSetPortDirection(u8 Copy_u8Port,Copy_u8Direction){
-    switch(Copy_u8Port)
-    {
-        case MDIO_PORTA:
-            DDRA = Copy_u8Direction; 
-        break;
-        case MDIO_PORTB:
-           DDRB = Copy_u8Direction;
-        break;
-        case MDIO_PORTC:
-           DDRC = Copy_u8Direction;
-        break;
-        case MDIO_PORTD:
-           DDRD = Copy_u8Direction;
-        break;
-        default:
-        break;
-        }
-}
 void MDIO_voidSetPinValueOrPullup(u8 Copy_u8Port, u8 Copy_u8Pin,u8 u8Value,u8 v/p)
 {
      if ( Copy_u8Pin > 7 || u8Value > 1)
