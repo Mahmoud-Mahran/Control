@@ -33,5 +33,5 @@ void UART_voidDisableRxIntrrupt(){
 	
 }
 void UART_voidOnReceive(void (*Copy_PvoidOnReceiveFunction) (void)){
-	
+	Copy_PvoidOnReceiveFunction();
 }
