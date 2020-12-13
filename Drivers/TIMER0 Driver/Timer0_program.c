@@ -1,24 +1,31 @@
 #include "Timer0_interface.h"
 #include "Timer0_config.h"
 #include "Timer0_private.h"
-#include <xc.h>
-
+#include "avr/io.h"
 
 
 void TIMER0_init(void)
 {
 	TCCR0A |= (PWM_MODE_SELECT1 << COM0A1) | (PWM_MODE_SELECT2 << COM0A0) | (PWM_MODE_SELECT1 << COM0B1) | (PWM_MODE_SELECT2 << COM0B0) | (TIMER0_MODE_SELECT1 << WGM01) | (TIMER0_MODE_SELECT2 << WGM00);
 	TCCR0B |= (1 << CS00);
-	OCR0A = 125;
-	OCR0B = 125;
+	OCR0A = 0;
+	OCR0B = 0;
 }
 
 
 
-void TIMER0_Set_PWM_DutyCycle(int chA_dutyCycle, int chB_dutyCycle)
+void TIMER0_Set_PWM_DutyCycle(int ch, int dutyCycle)
 {
-	OCR0A = chA_dutyCycle;
-	OCR0B = chB_dutyCycle;
+	switch(ch){
+		case ch_A:
+			OCR0A = dutyCycle;
+			break;
+		case ch_B:
+			OCR0B = dutyCycle;
+		break;
+		default:
+			return;
+				}
 }
 
 void TIMER0_SetFrequency(int f_PWM){

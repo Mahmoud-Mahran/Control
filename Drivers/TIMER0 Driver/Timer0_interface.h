@@ -13,8 +13,8 @@
 #define freq_4				8
 #define freq_2				9
 
-
-
+#define  ch_A				10
+#define  ch_B				11
 
 
 
